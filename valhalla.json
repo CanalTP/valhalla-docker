@@ -19,7 +19,7 @@
     "logging": {
       "type": "std_out",
       "color": true,
-      "long_request": 100.0
+      "long_request": 1000000.0
     },
     "service": {
       "proxy": "ipc:///tmp/loki"
@@ -42,7 +42,7 @@
       "color": true,
       "long_request": 110.0
     },
-    "source_to_target_algorithm": "select_optimal",
+    "source_to_target_algorithm": "timedistancematrix",
     "service": {
       "proxy": "ipc:///tmp/thor"
     }
@@ -96,7 +96,7 @@
     },
     "grid": {
       "size": 500,
-      "cache_size": 100240
+      "cache_size": 10240
     }
   },
   "tyr": {
@@ -119,45 +119,45 @@
   "service_limits": {
     "auto": {
       "max_distance": 5000000.0,
-      "max_locations": 20
+      "max_locations": 20000
     },
     "auto_shorter": {
       "max_distance": 5000000.0,
-      "max_locations": 20
+      "max_locations": 20000
     },
     "bus": {
       "max_distance": 5000000.0,
-      "max_locations": 50
+      "max_locations": 50000
     },
     "hov": {
       "max_distance": 5000000.0,
-      "max_locations": 20
+      "max_locations": 20000
     },
     "pedestrian": {
       "max_distance": 250000.0,
-      "max_locations": 50,
+      "max_locations": 50000,
       "min_transit_walking_distance": 1,
       "max_transit_walking_distance": 10000
     },
     "bicycle": {
       "max_distance": 500000.0,
-      "max_locations": 50
+      "max_locations": 50000
     },
     "multimodal": {
       "max_distance": 500000.0,
-      "max_locations": 50
+      "max_locations": 50000
     },
     "transit": {
       "max_distance": 500000.0,
-      "max_locations": 50
+      "max_locations": 50000
     },
     "truck": {
       "max_distance": 5000000.0,
-      "max_locations": 20
+      "max_locations": 20000
     },
     "sources_to_targets": {
       "max_distance": 200000.0,
-      "max_locations": 50
+      "max_locations": 50000
     },
     "skadi": {
       "max_shape": 750000,
@@ -170,7 +170,9 @@
     },
     "trace": {
       "max_distance": 162500.0,
-      "max_shape": 8000
+      "max_shape": 8000,
+      "max_search_radius": 10,
+      "max_gps_accuracy": 1
     },
     "max_avoid_locations": 5
   }
