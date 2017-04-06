@@ -28,7 +28,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends git \
       libprotobuf9 \
       libgeos-3.4.2 \
       liblua5.2 \
-      libspatialite5 \
       libsqlite3-0 \
       libboost-date-time1.55.0 \
       libboost-filesystem1.55.0 \
@@ -37,7 +36,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends git \
       libboost-system1.55.0 \
       libboost-thread1.55.0 \
       libboost-iostreams1.55.0 \
-      libspatialite5 \
   && git clone --depth=1 --recursive https://github.com/valhalla/valhalla.git libvalhalla \
   && cd libvalhalla && ./autogen.sh && ./configure --enable-static && make -j4 install && make clean && cd - && rm -rf libvalhalla && ldconfig \
   && apt-get -y purge \
@@ -55,7 +53,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends git \
       libgeos-dev \
       libgeos++-dev \
       liblua5.2-dev \
-      libsqlite3-dev \
       wget \
       unzip \
       python-all-dev \
