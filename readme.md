@@ -9,3 +9,5 @@ you can then build the data:
 And finally start it:
 
     docker run -it -v/run/valhalla/valhalla/:/data/valhalla -p 8002:8002 --rm navitia/valhalla
+
+You can override the default configuration by setting a volume on `/data/valhalla.json`
