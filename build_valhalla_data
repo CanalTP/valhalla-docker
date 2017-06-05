@@ -3,6 +3,6 @@
 pushd /data/valhalla
 
 /usr/local/bin/valhalla_build_tiles -c /data/valhalla.json $1
-find 0 1 2 | sort -n | tar cf tiles.tar --no-recursion -T -
+find tiles | sort -n | tar cf tiles.tar --no-recursion -T -
 
 popd

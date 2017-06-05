@@ -1,7 +1,7 @@
 {
   "mjolnir": {
     "max_cache_size": 1000000000,
-    "tile_dir": "/data/valhalla",
+    "tile_dir": "/data/valhalla/tiles",
     "tile_extract": "/data/valhalla/tiles.tar",
     "admin": "/data/valhalla/admin.sqlite",
     "timezone": "/data/valhalla/tz_world.sqlite",
@@ -23,6 +23,10 @@
     },
     "service": {
       "proxy": "ipc:///tmp/loki"
+    },
+    "service_defaults": {
+      "radius": 0,
+      "minimum_reachability": 50
     }
   },
   "skadi": {
@@ -174,6 +178,9 @@
       "max_search_radius": 10,
       "max_gps_accuracy": 1
     },
-    "max_avoid_locations": 5
+    "max_avoid_locations": 5,
+    "max_avoid_locations": 50,
+    "max_reachability": 100,
+    "max_radius": 200
   }
 }

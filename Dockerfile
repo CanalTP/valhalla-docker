@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends git \
       pkg-config \
       g++ \
       gcc \
+      locales \
       protobuf-compiler \
       libboost-all-dev \
       libcurl4-openssl-dev \
@@ -67,4 +68,4 @@ ADD valhalla.json /data/valhalla.json
 EXPOSE 8002
 ADD build_valhalla_data /usr/bin/build_valhalla_data
 RUN chmod +x /usr/bin/build_valhalla_data
-CMD /usr/local/bin/valhalla_route_service /data/valhalla.json
+CMD ["/usr/local/bin/valhalla_route_service","/data/valhalla.json"]
