@@ -1,5 +1,6 @@
 FROM navitia/prime-server
 
+VOLUME /data/valhalla
 RUN apt-get update && apt-get install -y --no-install-recommends git \
       autoconf \
       automake \
@@ -38,7 +39,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends git \
       libboost-thread1.55.0 \
       libboost-iostreams1.55.0 \
   && git clone --depth=1 --recursive https://github.com/valhalla/valhalla.git libvalhalla \
-  && cd libvalhalla && ./autogen.sh && ./configure --enable-static && make -j4 install && make clean && cd - && rm -rf libvalhalla && ldconfig \
+  && cd libvalhalla \
+  && ./scripts/valhalla_build_config --mjolnir-tile-dir /data/valhalla/tiles --thor-source-to-target-algorithm select_optimal --thor-logging-long-request 10000 \
+    --service-limits-multimodal-max-locations 50000 \
+    --service-limits-bicycle-max-locations 50000 \
+    --service-limits-isochrone-max-locations 50000 \
+    --service-limits-auto-max-locations 50000 \
+    --service-limits-transit-max-locations 50000 \
+    --service-limits-hov-max-locations 50000 \
+    --service-limits-pedestrian-max-locations 50000 \
+    --service-limits-auto-shorter-max-locations 50000 \
+    --service-limits-truck-max-locations 50000 \
+    --service-limits-bus-max-locations 50000 > /data/valhalla.json \
+  && ./autogen.sh && ./configure --enable-static && make -j4 install && make clean && ldconfig \
+  && cd - && rm -rf libvalhalla \
   && apt-get -y purge \
       git \
       autoconf \
@@ -62,8 +76,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends git \
       gucharmap \
  && apt-get autoremove -y && apt-get clean
 
-VOLUME /data/valhalla
-ADD valhalla.json /data/valhalla.json
 
 EXPOSE 8002
 ADD build_valhalla_data /usr/bin/build_valhalla_data
