@@ -40,7 +40,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends git \
       libboost-iostreams1.55.0 \
   && git clone --depth=1 --recursive https://github.com/valhalla/valhalla.git libvalhalla \
   && cd libvalhalla \
-  && ./scripts/valhalla_build_config --mjolnir-tile-dir /data/valhalla/tiles --thor-source-to-target-algorithm select_optimal --thor-logging-long-request 10000 \
+  && ./scripts/valhalla_build_config --mjolnir-tile-dir /data/valhalla/tiles --thor-source-to-target-algorithm timedistancematrix  --thor-logging-long-request 10000 \
+    --service-limits-pedestrian-max-matrix-distance 20000 \
+    --service-limits-bicycle-max-matrix-distance 40000 \
+    --service-limits-auto-max-matrix-distance 100000 \
     --service-limits-multimodal-max-locations 50000 \
     --service-limits-bicycle-max-locations 50000 \
     --service-limits-isochrone-max-locations 50000 \
@@ -50,7 +53,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends git \
     --service-limits-pedestrian-max-locations 50000 \
     --service-limits-auto-shorter-max-locations 50000 \
     --service-limits-truck-max-locations 50000 \
-    --service-limits-bus-max-locations 50000 > /data/valhalla.json \
+    --service-limits-bus-max-locations 50000 \
+    --service-limits-bicycle-max-matrix-locations 50000 \
+    --service-limits-pedestrian-max-matrix-locations 50000 \
+    --service-limits-auto-max-matrix-locations 50000 > /data/valhalla.json \
   && ./autogen.sh && ./configure --enable-static && make -j4 install && make clean && ldconfig \
   && cd - && rm -rf libvalhalla \
   && apt-get -y purge \
